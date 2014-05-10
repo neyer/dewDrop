@@ -98,16 +98,17 @@ chrome.extension.sendMessage({}, function(response) {
       $("body").append(html);
       menuElement = $("#dewdrop-box-main");
    }
-  // attach a 'trust' or 'check trust' link to each person
+  // attach the dialog to each link with a person
   // all the links with people have a 'hovercard' data attribute
   var personLinkRegex = /\/ajax\/hovercard\/user/;
   var personLinkRegex2 = /\/ajax\/hovercard\/hovercard.php/;
-  $("a").off("mousedown");
-  $("a").mousedown(function(e){
-    e.preventDefault();
+  $("a").off("contextmenu");
+  $("a").on("contextmenu", function(e){
     var thisElement = $(this); 
     var userName = thisElement.text();
     if (!e.button == 2) return;
+    e.preventDefault();
+    e.stopPropagation();
     if (thisElement.data('hovercard')){
         var hovercardVal = thisElement.data('hovercard');
         var withoutBase = false;
