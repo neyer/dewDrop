@@ -42,7 +42,7 @@
     {
       "matches": [
         "https://www.facebook.com/*",
-        "http://*/*"
+        "http://www.facebook.com/*"
       ],
       "js": [
         "src/inject/inject.js",

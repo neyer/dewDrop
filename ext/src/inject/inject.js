@@ -138,8 +138,6 @@ chrome.extension.sendMessage({}, function(response) {
     var thisElement = $(this); 
     var userName = thisElement.text();
     if (!e.button == 2) return;
-    e.preventDefault();
-    e.stopPropagation();
     if (thisElement.data('hovercard')){
         var hovercardVal = thisElement.data('hovercard');
         var withoutBase = false;
@@ -150,6 +148,9 @@ chrome.extension.sendMessage({}, function(response) {
            withoutBase = hovercardVal.substring(32);
         }
         if (!withoutBase) return;
+        e.preventDefault();
+        e.stopPropagation();
+
           //see if we have to chop off the '&'
           var indexOfAmp = withoutBase.indexOf('&');
           if (indexOfAmp != -1){
