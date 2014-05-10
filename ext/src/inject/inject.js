@@ -26,31 +26,42 @@ chrome.extension.sendMessage({}, function(response) {
     var trustUserKey = getTrustUserKey(userId);
     chrome.storage.sync.get(trustUserKey,
         function (record){
-          console.log("got trust record for user "+userId+ ": "+record);
+          console.log("got trust record for user ");
           console.log("record has value " + record[trustUserKey]);
-          userTrustLocalMap[userId] = record[trustUserKey];
+          var trustLevel = record[trustUserKey];
+          userTrustLocalMap[userId] = trustLevel;
+          if(trustLevel > 0)
+            $("#trust-level-user-"+userId).html("Is trusted.");
+          else if (trustLevel < 0)
+            $("#trust-level-user-"+userId).html("Is distrusted.");
       });
   };
 
+  var hideMenu = function () {
+      var offset = { top : - 1000};
+      if (menuElement)
+        menuElement.css(offset);
+  }
   var updateMenu =  function(userName, trustCount, userId){
     userIdInMenu = userId;
 
     var trustQuestion = "Do you trust them?";
-    var userDescription = userName;
+    var userDescription = "Is unknown";
 
     var currentTrust = userTrustLocalMap[userId];
 
     if (currentTrust == 1){
-        userDescription = userName + " :)";
+        userDescription = "Is trusted."
         trustQuestion =  "Do you still trust them?";
     } else if (currentTrust == -1) {
-        userDescription = userName + " :(";
-   }
+        userDescription = "Is distrusted";
+    }
     var jup = [ 
        [ "h3", "DewDrop"],
-       [ "p", { class : "user-handle" }, userDescription],
-       [ "p", { class : "trust-level" },
-           "Trust count: " + trustCount ],
+       [ "p", { class : "user-handle"}, userName],
+       [ "p", { class : "trust-level",
+                   id : "trust-level-user-"+userId },
+           userDescription],
        [ "p", trustQuestion  ],
        [ "div", { class : "form-indicate-trust" },
           [ "button", { class : "indicate-trust" }, "Yes" ],
@@ -71,7 +82,12 @@ chrome.extension.sendMessage({}, function(response) {
         updateMenu(userName, trustCount, userId);
      });
   };
-
+ 
+  // hook up global listeners
+ $(document).on("scroll", function () {
+    hideMenu();
+  });
+  // periodically apply this hook
   var applyLinks = function() {
   if (document.readyState === "complete") {
     // make the menu box if it doesn't exist
@@ -113,6 +129,11 @@ chrome.extension.sendMessage({}, function(response) {
           getTrustInUser(userId);
           updateMenu(userName, 10, userId);
           var offset = thisElement.offset();
+          var scrolltop = $(window).scrollTop();
+          console.log("scrolltop is "+scrolltop);
+          console.log(offset);
+          offset.top = offset.top - scrolltop;
+        
           menuElement.css(offset);
       }
    });
