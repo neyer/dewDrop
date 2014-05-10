@@ -1,0 +1,44 @@
+/**
+ * Place your custom CSS styles here.
+ **/
+
+#dewdrop-box-main{
+  font-family:  "Trebuchet MS", Helvetica, sans-serif; 
+  width: 150px;
+  height: 200px;
+  position: fixed;
+  font-size: 16px;
+  background-color: #b6b7e9;
+  padding: 20px;
+}
+
+
+#dewdrop-box-main h3 {
+  font-size: 20px;
+}
+
+
+#dewdrop-box-main .user-handle {
+  text-align: center;
+}
+
+#dewdrop-box-main .trust-level {
+  text-align: center;
+}
+
+
+#dewdrop-box-main .form-indicate-trust button {
+  width: 42px;
+  height: 20px;
+}
+
+#dewdrop-box-main .form-indicate-trust button.indicate-trust {
+  float: left;
+  margin-left: 25px;
+}
+
+#dewdrop-box-main .form-indicate-trust button.indicate-distrust {
+  float: right;
+  margin-right: 25px;
+}
+
