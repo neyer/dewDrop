@@ -1,17 +1,27 @@
 chrome.extension.sendMessage({}, function(response) {
 
-  var alreadyBound = {};
-
+  // we use a single gui element for dewdrop menu
+  // just reposition this thing
   var menuElement = null;
   var currentUser = {};
   var userIdInMenu = null;
 
+  // this a locacl cache of what is kept in chrome's storage
+  // since chrome's storage is async
   var userTrustLocalMap = {};
 
+
+  // we define a key for each user
+  // i should add 'facebook' to this so we specify domain, username
   var getTrustUserKey = function (userId){
     return "trust-user-"+userId;
   };
 
+
+  // store the trust locally, in chrome's sync storage
+  // we'd want to give people the option not to do this, as
+  // chrome's sync storage is not scure
+  // PLACE API HOOK HERE 
   var storeTrustInUser = function (userId, amount){
      var trustUserKey = getTrustUserKey(userId);
     userTrustLocalMap[userId] = amount;
@@ -22,14 +32,21 @@ chrome.extension.sendMessage({}, function(response) {
         });
   };
 
+
+  // get the trust from chrome's sync storage
+  // again, give ppl the option to do this,
+  // as chrome's sync storage is stored insecurely on local HD
+  // PLACE API HOOK HEREE
   var getTrustInUser = function(userId){
     var trustUserKey = getTrustUserKey(userId);
     chrome.storage.sync.get(trustUserKey,
+        // chrome storage api's are async
         function (record){
-          console.log("got trust record for user ");
-          console.log("record has value " + record[trustUserKey]);
+          console.log("trust record  for " + userId + 
+                    " has value " + record[trustUserKey]);
           var trustLevel = record[trustUserKey];
           userTrustLocalMap[userId] = trustLevel;
+          // update the dialog if we have it
           if(trustLevel > 0)
             $("#trust-level-user-"+userId).html("Is trusted.");
           else if (trustLevel < 0)
@@ -44,20 +61,33 @@ chrome.extension.sendMessage({}, function(response) {
   }
   var updateMenu =  function(userName, trustCount, userId){
     userIdInMenu = userId;
-
     var trustQuestion = "Do you trust them?";
     var userDescription = "Is unknown";
-
-    var currentTrust = userTrustLocalMap[userId];
-
+        var currentTrust = userTrustLocalMap[userId];
     if (currentTrust == 1){
         userDescription = "Is trusted."
         trustQuestion =  "Do you still trust them?";
     } else if (currentTrust == -1) {
         userDescription = "Is distrusted";
     }
+
+
+    // i'm using this library called jup to build the html
+    // it's a way of representing html as javascript
+    // i think it's simple and straightfoward
+    // and it looks better than raw html in escaped strings
     var jup = [ 
-       [ "h3", "DewDrop"],
+       [ "h3", "dewDrop"],
+       // i like camel casing the name
+       // it's not what most people are used to seeing
+       // but it makes perfect sense to programmers
+       // it fits with the notion of alogrithmic trust
+       // and there's a neat symmetry about it - the d and p are mirorrs
+       // o and e are vowels; you can form one from the other
+       // and a 'w' is like two upsidetown 'r's mirroring erach other
+       // also, it's visuaslly representative of a dewdrop 
+       // i.e. the bugle in the middle
+       // i of course defer to you on stylistic matters
        [ "p", { class : "user-handle"}, userName],
        [ "p", { class : "trust-level",
                    id : "trust-level-user-"+userId },
@@ -71,8 +101,8 @@ chrome.extension.sendMessage({}, function(response) {
 
      // set the html for this thing
      menuElement.html(JUP.html(jup));
-     // now update the click handler
 
+     // now update the click handler
      $("button.indicate-trust").on("click", function () {
         storeTrustInUser(userId, 1);
         updateMenu(userName, trustCount, userId);
@@ -88,6 +118,7 @@ chrome.extension.sendMessage({}, function(response) {
     hideMenu();
   });
   // periodically apply this hook
+  // so that as new links are added, they get the context menu
   var applyLinks = function() {
   if (document.readyState === "complete") {
     // make the menu box if it doesn't exist
