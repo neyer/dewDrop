@@ -4,25 +4,72 @@ chrome.extension.sendMessage({}, function(response) {
 
   var menuElement = null;
   var currentUser = {};
+  var userIdInMenu = null;
 
-  var updateMenuUser = function(userName, userId){
-      currentUser.name = userName;
-      currentUser.id = userId;
+  var userTrustLocalMap = {};
+
+  var getTrustUserKey = function (userId){
+    return "trust-user-"+userId;
+  };
+
+  var storeTrustInUser = function (userId, amount){
+     var trustUserKey = getTrustUserKey(userId);
+    userTrustLocalMap[userId] = amount;
+    var trustQuery = {};
+    trustQuery[trustUserKey] = amount;
+    chrome.storage.sync.set(trustQuery,
+        function () { console.log("Stored trust in "+userId+" at "+amount);
+        });
+  };
+
+  var getTrustInUser = function(userId){
+    var trustUserKey = getTrustUserKey(userId);
+    chrome.storage.sync.get(trustUserKey,
+        function (record){
+          console.log("got trust record for user "+userId+ ": "+record);
+          console.log("record has value " + record[trustUserKey]);
+          userTrustLocalMap[userId] = record[trustUserKey];
+      });
   };
 
   var updateMenu =  function(userName, trustCount, userId){
+    userIdInMenu = userId;
+
+    var trustQuestion = "Do you trust them?";
+    var userDescription = userName;
+
+    var currentTrust = userTrustLocalMap[userId];
+
+    if (currentTrust == 1){
+        userDescription = userName + " :)";
+        trustQuestion =  "Do you still trust them?";
+    } else if (currentTrust == -1) {
+        userDescription = userName + " :(";
+   }
     var jup = [ 
        [ "h3", "DewDrop"],
-       [ "p", { class : "user-handle" }, userName ],
+       [ "p", { class : "user-handle" }, userDescription],
        [ "p", { class : "trust-level" },
            "Trust count: " + trustCount ],
-       [ "p", "Do you trust them?" ],
+       [ "p", trustQuestion  ],
        [ "div", { class : "form-indicate-trust" },
           [ "button", { class : "indicate-trust" }, "Yes" ],
           [ "button", { class : "indicate-distrust" }, "No" ],
        ],
      ];
+
+     // set the html for this thing
      menuElement.html(JUP.html(jup));
+     // now update the click handler
+
+     $("button.indicate-trust").on("click", function () {
+        storeTrustInUser(userId, 1);
+        updateMenu(userName, trustCount, userId);
+     });
+     $("button.indicate-distrust").on("click", function(){
+        storeTrustInUser(userId, -1);
+        updateMenu(userName, trustCount, userId);
+     });
   };
 
   var applyLinks = function() {
@@ -41,6 +88,7 @@ chrome.extension.sendMessage({}, function(response) {
   var personLinkRegex2 = /\/ajax\/hovercard\/hovercard.php/;
   $("a").off("mousedown");
   $("a").mousedown(function(e){
+    e.preventDefault();
     var thisElement = $(this); 
     var userName = thisElement.text();
     if (!e.button == 2) return;
@@ -59,13 +107,13 @@ chrome.extension.sendMessage({}, function(response) {
           if (indexOfAmp != -1){
                 withoutBase = withoutBase.substring(0,indexOfAmp);
           }
-          thisElement.data('user-id', withoutBase);
-          console.log('got id '+thisElement.data('user-id'));
+          var userId = withoutBase;
+          thisElement.data('user-id', userId);
+          console.log('got id '+userId);
+          getTrustInUser(userId);
+          updateMenu(userName, 10, userId);
           var offset = thisElement.offset();
-          console.log(offset);
-          updateMenu(userName, 10, withoutBase);
           menuElement.css(offset);
-          e.preventDefault();
       }
    });
   }
