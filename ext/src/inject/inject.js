@@ -41,9 +41,7 @@ chrome.extension.sendMessage({}, function(response) {
         "support": userId
       },
       success: function(data, textStatus, jqXHR){
-        console.log(data);
         console.log("great success");
-        debugger;
       },
       dataType: "json" //may need to change to best guess
     });
