@@ -6,6 +6,9 @@ chrome.extension.sendMessage({}, function(response) {
   var currentUser = {};
   var userIdInMenu = null;
 
+  //base url for the backend
+  var baseURL = "http://dewdewdrop.herokuapp.com";
+
   // this a locacl cache of what is kept in chrome's storage
   // since chrome's storage is async
   var userTrustLocalMap = {};
@@ -22,14 +25,33 @@ chrome.extension.sendMessage({}, function(response) {
   // we'd want to give people the option not to do this, as
   // chrome's sync storage is not scure
   // PLACE API HOOK HERE 
-  var storeTrustInUser = function (userId, amount){
-     var trustUserKey = getTrustUserKey(userId);
+  var storeTrustInUser = function(userId, amount){
+    var trustUserKey = getTrustUserKey(userId);
     userTrustLocalMap[userId] = amount;
     var trustQuery = {};
     trustQuery[trustUserKey] = amount;
+
+    //id of the user who is logged in
+    var loggedInId = 1;
+    var jqxhrTrust = $.ajax({
+      type: "POST",
+      url: baseURL + "/api/v1/users/facebook/" + loggedInId + "/supporters",
+      data: {
+        "network": "facebook", //should change with the social platform we are on
+        "support": userId
+      },
+      success: function(data, textStatus, jqXHR){
+        console.log(data);
+        console.log("great success");
+        debugger;
+      },
+      dataType: "json" //may need to change to best guess
+    });
+
     chrome.storage.sync.set(trustQuery,
-        function () { console.log("Stored trust in "+userId+" at "+amount);
-        });
+      function(){
+        console.log("Stored trust in " + userId + " at " + amount);
+      });
   };
 
 
