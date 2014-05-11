@@ -32,10 +32,11 @@ chrome.extension.sendMessage({}, function(response) {
     trustQuery[trustUserKey] = amount;
 
     //id of the user who is logged in
-    var loggedInId = 1;
+    //we find the mini profile picture on the page, find it's prop id, split it based on _ and take the 4th entry of the returned array to get the facebook id
+    var loggedInUserId = $('.headerTinymanPhoto').prop('id').toString().split('_')[3];
     var jqxhrTrust = $.ajax({
       type: "POST",
-      url: baseURL + "/api/v1/users/facebook/" + loggedInId + "/supporters",
+      url: baseURL + "/api/v1/users/facebook/" + loggedInUserId + "/supporters",
       data: {
         "network": "facebook", //should change with the social platform we are on
         "support": userId
@@ -43,7 +44,10 @@ chrome.extension.sendMessage({}, function(response) {
       success: function(data, textStatus, jqXHR){
         console.log("great success");
       },
-      dataType: "json" //may need to change to best guess
+      error: function(jqXHR, textStatus, err){
+        console.error("Server is having trouble allowing " + loggedInUserId + " supporting " + userId + " error data: " + textStatus);
+      },
+      dataType: "json" //may need to change to allow client to make it's own best guess
     });
 
     chrome.storage.sync.set(trustQuery,
