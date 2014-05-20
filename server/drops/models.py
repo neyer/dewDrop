@@ -5,11 +5,9 @@ class Network(models.Model):
     identity provider (email) """
     name = models.CharField(max_length=256)
 
+
 class Identity(models.Model):
-    # email address, facebook id, phone number, etc
-    # so for an email identity, the network is 'email', the email address 
-    # for a phone identity, network is 'phone' and the 'address' is 
-    # the phone number
+    """An Identity is a vertex on a social Network. The `address` of the vertex is used to uniqueify it in that network. For example, a phone number is an identity on the phone network. the 'address' of that identity is the same as the phone number.  The network is 'telephone.'"""
     address = models.CharField(max_length=1024,default="")
     network = models.ForeignKey(Network)
 
