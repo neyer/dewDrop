@@ -8,9 +8,11 @@ class Network(models.Model):
 
 class Address(models.Model):
     """An Address is a vertex on a social Network. The `address` of the vertex
-    is used to uniqueify it in that network. For example, a phone number is an
-    identity on the phone network.x
-    the 'name' of that address is the same as the phone number.  The network is 'telephone.'"""
+    is used to uniqueify it in that network.
+    
+    For example, a phone number is an address on the phone network.
+    the 'name' of that adderss is the same as the phone number. 
+    The network is 'telephone.'"""
     name = models.CharField(max_length=1024,default="")
     network = models.ForeignKey(Network)
 
