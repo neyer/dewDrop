@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 
 
-from drops.models import Identity
+from drops.models import Address
 from drops.models import Network
 from drops.models import Statement
 
@@ -10,9 +10,9 @@ class NetworkResource(ModelResource):
     class Meta:
         queryset = Network.objects.all()
 
-class IdentityResource(ModelResource):
+class AddressResource(ModelResource):
     class Meta:
-        queryset = Identity.objects.all()
+        queryset = Address.objects.all()
 
 
 class StatementResource(ModelResource):

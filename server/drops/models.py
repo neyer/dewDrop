@@ -6,16 +6,19 @@ class Network(models.Model):
     name = models.CharField(max_length=256)
 
 
-class Identity(models.Model):
-    """An Identity is a vertex on a social Network. The `address` of the vertex is used to uniqueify it in that network. For example, a phone number is an identity on the phone network. the 'address' of that identity is the same as the phone number.  The network is 'telephone.'"""
-    address = models.CharField(max_length=1024,default="")
+class Address(models.Model):
+    """An Address is a vertex on a social Network. The `address` of the vertex
+    is used to uniqueify it in that network. For example, a phone number is an
+    identity on the phone network.x
+    the 'name' of that address is the same as the phone number.  The network is 'telephone.'"""
+    name = models.CharField(max_length=1024,default="")
     network = models.ForeignKey(Network)
 
 
 class Statement(models.Model):
-    author = models.ForeignKey(Identity,
+    author = models.ForeignKey(Address,
                                 related_name='statements_made')
-    subject = models.ForeignKey(Identity, 
+    subject = models.ForeignKey(Address, 
                                 blank=True,
                                 related_name="statements_about") 
     content = models.TextField(default="") 
