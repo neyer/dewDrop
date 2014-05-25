@@ -1,9 +1,18 @@
+from django.contrib import admin
 from django.db import models
 
 class Network(models.Model):
     """Social network (Facebook, Twitter, G+) or category of 
     identity provider (email) """
     name = models.CharField(max_length=256)
+
+    def __str__(self):
+        return 'Network {}'.format(self.name)
+
+    class Admin(admin.ModelAdmin):
+        pass
+
+admin.site.register(Network, Network.Admin)
 
 
 class Address(models.Model):
@@ -16,6 +25,18 @@ class Address(models.Model):
     name = models.CharField(max_length=1024,default="")
     network = models.ForeignKey(Network)
 
+    def __str__(self):
+        return '{}.{}'.format(self.network.name, self.name)
+
+    class Meta:
+        verbose_name_plural = 'Addresses'
+
+    class Admin(admin.ModelAdmin):
+        pass
+
+admin.site.register(Address, Address.Admin)
+
+
 
 class Statement(models.Model):
     author = models.ForeignKey(Address,
@@ -26,4 +47,10 @@ class Statement(models.Model):
     content = models.TextField(default="") 
     timestamp = models.FloatField()
 
+    def __str__(self):
+        return "at {} {} says {} {}".format(self.timestamp,
+                                            self.author,
+                                            self.content,
+                                            self.subject)
 
+admin.site.register(Statement)
