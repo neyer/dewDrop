@@ -70,11 +70,24 @@ def make_statement(request):
                                                      network=s_network)
     if created: subject.save()
 
-    
     s = Statement.create(author, content, subject)
     s.save()
 
     return _json_response({'success' : True,
                            'id' : s.id})
 
+def check_statement(request,
+                    author_network, author_name,
+                    content,
+                    subject_network, subject_name):
 
+
+    for s in Statement.objects.filter(author__network__name=author_network,
+                                author__name=author_name,
+                                content=content,
+                                subject__network__name=subject_network,
+                                subject__name=subject_name).\
+                                order_by('-timestamp'):
+        return _json_response({ 'exists' : True,
+                                'timestamp'  : s.timestamp})
+    return _json_response({ 'exists' : False })
