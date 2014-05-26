@@ -67,11 +67,11 @@ LOGGING = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'pv#*b_^#1rqn$63hj-shdrkj-e^0fkcs)5gc3mg%_$#d0em(3@'
 
-DEBUG = os.getenv('DJANGO_PROD_MODE') is not 'TRUE'
+DEBUG = not (os.getenv('DJANGO_PROD_MODE') == 'TRUE')
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '127.0.0.1', 'dewdrop.neyer.me' ]
 
 
 # Application definition
