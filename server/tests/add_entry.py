@@ -3,8 +3,10 @@ import lazyopt
 import requests
 import time
 
-AUTHOR_ID=1
-SUBJECT_ID=1
+AUTHOR_NAME='neyer'
+SUBJECT_NAME='neyer'
+AUTHOR_NETWORK='facebook'
+SUBJECT_NETWORK='facebook'
 CONTENT='trust'
 SERVER_HOST = 'http://10.0.2.15:8000'
 API_BASE_URL = '/api/v1'
@@ -20,16 +22,17 @@ if __name__ == '__main__':
 
     lazyopt.apply_all()
     
-    payload = { 'author' : make_address_url(AUTHOR_ID),
-                'subject' : make_address_url(SUBJECT_ID),
-                'timestamp' : TIMESTAMP,
+    payload = { 'author_name': AUTHOR_NAME,
+                'author_network':  AUTHOR_NETWORK,
+                'subject_name':  SUBJECT_NETWORK,
+                'subject_network':  SUBJECT_NETWORK,
                 'content' : CONTENT }
 
     print 'payload is:\n', payload
 
+    make_statement_url = '/make-statement'
 
-
-    r = requests.post(SERVER_HOST+STATEMENT_URL,
+    r = requests.post(SERVER_HOST+make_statement_url,
                       headers={'content-type':'application/json'},
                       data=json.dumps(payload))
     print '---\n',r.text, '---\n', r.headers

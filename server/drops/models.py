@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.db import models
 
+import time
+
 class Network(models.Model):
     """Social network (Facebook, Twitter, G+) or category of 
     identity provider (email) """
@@ -52,5 +54,14 @@ class Statement(models.Model):
                                             self.author,
                                             self.content,
                                             self.subject)
+
+    @classmethod
+    def create(classs, author, content, subject=None):
+        s = Statement(author=author,
+                      subject=subject,
+                      content=content,
+                      timestamp=time.time())
+        return s
+
 
 admin.site.register(Statement)

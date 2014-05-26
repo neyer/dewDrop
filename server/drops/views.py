@@ -1,8 +1,80 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+from drops.models import Address
+from drops.models import Network
+from drops.models import Statement
+
+import json
+import logging
+import time
+
+logger = logging.getLogger(__name__)
+
+def _json_response(js):
+    return HttpResponse(json.dumps(js),
+                        content_type='application/json')
+
+
+def _validate_json(body, expected):
+    missing = []
+
+    for key in expected:
+        if not key in body:
+            missing.append(key)
+
+    if missing: 
+        return False, { 'missing' : missing }
+    else:
+        return True, {}
 
 def index(request):
     return HttpResponse(':)')
+
+
+@csrf_exempt
+def make_statement(request):
+
+    # first get the body to make sure this guy is valid
+    body = json.loads(request.body)
+
+    expected = [ 'author_name', 'author_network', 
+                 'subject_name', 'subject_network' ]
+
+    valid, errors = _validate_json(body, expected)
+    if not valid:
+        return _json_response({'success' : False,
+                                'errors' : errors })
+                                            
+    # extract the fields from the body 
+    # create the appropriate networks/addresses if needed
+
+    subj_network_name = body['author_network']
+    auth_network_name = body['subject_network']
+    auth_name = body['author_name']
+    subj_name = body['subject_name']
+    content = body['content']
+    
+    a_network, created = Network.objects.get_or_create(name=auth_network_name)
+    if created: a_network.save()
+
+    author, created = Address.objects.get_or_create(network=a_network,
+                                                    name=auth_name)
+    if created: author.save()
+
+    s_network, created = Network.objects.get_or_create(name=subj_network_name)
+    if created: s_network.save()
+
+    subject, created = Address.objects.get_or_create(name=subj_name,
+                                                     network=s_network)
+    if created: subject.save()
+
+    
+    s = Statement.create(author, content, subject)
+    s.save()
+
+    return _json_response({'success' : True,
+                           'id' : s.id})
+
 

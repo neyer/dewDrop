@@ -1,2 +1,4 @@
 .idea/
 db.sqlite3
+server/logfile
+server/static
