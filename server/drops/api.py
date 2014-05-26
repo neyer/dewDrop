@@ -19,7 +19,8 @@ class NetworkResource(ModelResource):
         }
 
 class AddressResource(ModelResource):
-    network = fields.ForeignKey(NetworkResource, 'network')
+    network = fields.ForeignKey(NetworkResource, 'network',
+                                full=True)
     class Meta:
         queryset = Address.objects.all()
         filtering  = {
@@ -31,9 +32,11 @@ class AddressResource(ModelResource):
 class StatementResource(ModelResource):
 
     author = fields.ToOneField(AddressResource,
-                               'author')
+                               'author',
+                                full=True)
     subject = fields.ToOneField(AddressResource,
-                                'subject')
+                                'subject',
+                                full=True)
     class Meta:
         queryset = Statement.objects.all()
         authorization = Authorization()
