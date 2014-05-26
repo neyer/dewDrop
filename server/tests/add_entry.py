@@ -24,7 +24,7 @@ if __name__ == '__main__':
     
     payload = { 'author_name': AUTHOR_NAME,
                 'author_network':  AUTHOR_NETWORK,
-                'subject_name':  SUBJECT_NETWORK,
+                'subject_name':  SUBJECT_NAME,
                 'subject_network':  SUBJECT_NETWORK,
                 'content' : CONTENT }
 
