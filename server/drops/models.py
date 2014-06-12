@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db import models
 
+import json
 import time
 
 class Network(models.Model):
@@ -29,6 +30,10 @@ class Address(models.Model):
 
     def __str__(self):
         return '{}.{}'.format(self.network.name, self.name)
+
+    def to_json(self):
+        return { 'network' : self.network.name,
+                 'name' : self.name }
 
     class Meta:
         verbose_name_plural = 'Addresses'

@@ -91,3 +91,24 @@ def check_statement(request,
         return _json_response({ 'exists' : True,
                                 'timestamp'  : s.timestamp})
     return _json_response({ 'exists' : False })
+
+
+def stating_addresses(request, content, subject_network, subject_name):
+    by_network = {}
+    last_maker = None
+    for s in Statement.objects.filter(subject__network__name=subject_network,
+                                      subject__name=subject_name,
+                                      content=content).\
+                                      order_by('timestamp', 'author'):
+        if last_maker is None or (s.author.id != last_maker.id):
+            auth_network = s.author.network.name
+            auth_name = s.author.name
+            authors = by_network.setdefault(auth_network,[])
+            authors.append([s.timestamp,auth_name])
+        last_maker = s.author
+
+    return _json_response({'authors' : by_network})
+            
+
+
+
