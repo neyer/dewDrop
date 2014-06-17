@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from drops import urls as drops_urls
+from trust import urls as trust_urls
 from drops import api
 
 import inspect
@@ -24,4 +25,5 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include(drops_urls)),
+    url(r'^trust/', include(trust_urls)),
 )
