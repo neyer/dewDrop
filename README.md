@@ -6,10 +6,11 @@
 dewDrop is a network where nodes make statements about other nodes. those statements can be transitively followed so individual nodes can make queries which aggregate information over the network.
 
 there are two parts
- - a server which acccepts statements and returns queries about statements. there's an iplementation running at:
+
+   - a server which acccepts statements and returns queries about statements. there's an iplementation running at:
   https://dewdrop.neyer.me
 
-- a chrome extension which you can use to trust users on facebook. there's work being done on the UI in a seprate branch
+  - a chrome extension which you can use to trust users on facebook. there's work being done on the UI in a seprate branch
 
 # how
 
@@ -39,4 +40,5 @@ please help!
 
 license:
 
-bsd
+GPLv3.0
+
