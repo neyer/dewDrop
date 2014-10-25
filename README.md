@@ -22,14 +22,13 @@
 
   People who have a record of apologizing when they offend others, and seeking forgiveness for doing so - those are people much more worth talking to. dewDrop can help us find each other.
 
- 
-# how
+ # how
   The language can be determined by simple regular expresisons. The primitives are keyworks, hashtags, and urls. A simple parser is implemented in `parser.py`. This is the complete specification for version 1 of the dewDrop language.
 
 ## General syntax
   All dewdrop messages can begin with any text; the dewDrop portion starts with #ddv1 to identify it as a dewDrop message. The next token should be a one of the verb keywords of the language. The remaining tokens following the verb should be nouns upon which the verb operates.
 
-  .* #ddv1 <VERB> <NOUN> [<NOUN> ]*
+    .* #ddv1 <VERB> <NOUN> [<NOUN> ]*
 
  Most Nouns will be URLS - A user can be referred to with the URL of their social media account. If a dewDrop statement is made on twitter, the '@userName' syntax will be assumed to refer to that person on twitter.  You can also speak about a user account at another site - like a reddit user, a facebook user, an email address, a telephone number... any protocol you wish. 
 
@@ -39,60 +38,60 @@
 ## Group Membership
 Groups in dewdrop are represented by hashtags. A person can claim to be a member of a group with the 'ISA' verb, and claim not to be a meber with the 'NOTA' verb. For example, the sentence
 
-  #ddv1 ISA #democrat
+    #ddv1 ISA #democrat
 
 Means "The speaker of this sentence claims to be a member of the #democrat" group.  Any group you want to identify with can be used as a hashtag.  This way, discussions around social movements, say "#yesAllWomen", can involve people stating their identification with principles of the group. If I choose to leave a group  - either becuase their values have changd, or I have - I can ussue a 'NOTA' statement:
 
-  #ddv1 NOTA #vegetarian
+    #ddv1 NOTA #vegetarian
 
 A person can also make statements about other people.  I can claim that Ralph Nader is a #greeparty member:
 
-  #ddv1 ISA #greeparty @RalphNader
+    #ddv1 ISA #greeparty @RalphNader
 
-  .* #ddv1 ISA (HASHTAG) [URL]
-  .* #ddv1 NOTA (HASHTAG) [URL]
+    .* #ddv1 ISA (HASHTAG) [URL]
+    .* #ddv1 NOTA (HASHTAG) [URL]
 
 
 ## Statement Agreement
-  .* #ddv1 AGREE (URL)
-  .* #ddv1 DISAGREE (URL)
+    .* #ddv1 AGREE (URL)
+    .* #ddv1 DISAGREE (URL)
 
   Agreement in dewDrop can be signalled with the AGREE verb.  Disagreement can be signaled with the DISAGREE verb.  A Person can agree with any URL they wish. I might agree with another statement someone has made by agreeing with the url of that statement:
-  #ddv1 AGREE https://twitter.com/MarkPNeyer/status/525766862949199873  
-
+    #ddv1 AGREE https://twitter.com/MarkPNeyer/status/525766862949199873  
+ 
  I can also agree with a supreme court decision by 'agreeing' with a news article about the supreme court decision, or the wikipedia page. 
 
   When a discussion evolvs to a certain point, must likely a hashtag will be created to represent the movement. At that point, people who agree with one 'side'  of the discussion will issue a 'group memebership' statement. The point of 'agremeent' statements is primarily to allow people to agree or disagree with other people's statements.
 
  Suppose Alice, who supports marriage equality may issue a statement:
 
-  @Alice: #ddv1 AMA #LGBTAlly
+    @Alice: #ddv1 AMA #LGBTAlly
 
 Now, suppose Bob says:
 
-  @Bob: you said there's no such thing as bisexual #ddv1 NOTA #LGBTAlly @Alice
+    @Bob: you said there's no such thing as bisexual #ddv1 NOTA #LGBTAlly @Alice
 
 Bob's statement is equivalent to him saying:
 
-  @Bob: #dd1 DISAGREE https://twitter.com/ALICE/status/1234
+    @Bob: #dd1 DISAGREE https://twitter.com/ALICE/status/1234
 
   So now suppose more self-identified members of the  group #LGBTAlly weigh in on the discussion. Some may issue AGREE statements with @Alice, and some may issue @AGREE statements with Bob.  A discussion will happen, and either the #LGBTAlly group will  integrate itself, and come to a conclusion, or else it won't and people who can't agree will stop associating under the same banner.
 
   Suppose that discussion resolves itself, with @Alice agreeing that bisexuality is a natural  thing, too. She may issue statements like this:
 
-  @Alice: you were right about accepting bisexuality #ddv1 SORRY @Bob
+    @Alice: you were right about accepting bisexuality #ddv1 SORRY @Bob
 
 Suppose that statement has URLphttp://twitter.com/Alice/status/1235 - Bob may issue these statements:
 
-  @Bob: it's all good #ddv1 FORGIVE http://twitter.com/Alice/status/1235
-  @Bob: #ddv1 AGREE https://twitter.com/Alice/status/12345
+    @Bob: it's all good #ddv1 FORGIVE http://twitter.com/Alice/status/1235
+    @Bob: #ddv1 AGREE https://twitter.com/Alice/status/12345
 
 As a result of this exchange, the '#LGBTAlly' has increased its integrity; the self-identified members of the group are largely in agreement with each other about what constitutes group membership, AND they have successfully resolved a conflict between two members. 
 
   
 ## Trust and Distrust
-  .* #ddv1 TRUST (URL)
-  .* #ddv1 DISTRUST (URL)
+    .* #ddv1 TRUST (URL)
+    .* #ddv1 DISTRUST (URL)
 
   At lower layer than disagreement is trust. I can disagree with someone, but still believe they are honestly expressing their belief. Users in dewdrop have the ability to state trust and distrust in statements or other users with the 'TRUST/DISTRUST' a verbs.
   
@@ -110,11 +109,11 @@ People who are concerned about trolling or being victimed online can follow the 
 
 ## Same Identity
 
-  .* #ddv1 SAME (URL) (URL)
+    .* #ddv1 SAME (URL) (URL)
 
   This statement may seem small at first, but it actually gives dewDrop a lot of power. It's used to link identities together - so that I can say "this facebook account is the same as this twitter acount", this email address belongs to this account, etc. If @Eve someone creates a fake trolling account @Fred, and I'm  certain it's @Eve pulling the strings, I can make this statement public: 
 
-  @Bob: #ddv1 SAME @Eve @Fred
+    @Bob: #ddv1 SAME @Eve @Fred
 
 
 The standard mechanism for resoving these disputes applies; people who know @eve may disagree, @fred will probably disagree as well. If there are trusted friends involved that know both of us, they may want to step in to resolve this dispute.
@@ -125,9 +124,9 @@ The standard mechanism for resoving these disputes applies; people who know @eve
 
 ## Offense, Apology, Forgiveness
 
-  .* #ddv1 OFFEND  (URL)[, (URL)[, (URL)]]
-  .* #ddv1 FORGIVE (URL)[, (URL)[, (URL)]]
-  .* #ddv1 SORRY (URL)[, (URL)]
+    .* #ddv1 OFFEND  (URL)[, (URL)[, (URL)]]
+    .* #ddv1 FORGIVE (URL)[, (URL)[, (URL)]]
+    .* #ddv1 SORRY (URL)[, (URL)]
 
   People upset each other. This happens, and its part of the world. By keeping a record of those we have upset, and those who we've forgiven, we can all help each other get a better gauge of who are are. If i run into a stranger on twitter who really upsets me, and i see from his record that friends of friends have all been upset by this guy, but for every single one, he's apologized and they've forgiven him - it suggets that he may be worth talking to.
 
@@ -140,26 +139,26 @@ If someone else has offended far fewer people, but has never apologized or been 
 
   So, If @bob simply wants to say "@Alice has offended me" he can do this
 
-  @Bob #ddv1 OFFEND @Alice
+    @Bob #ddv1 OFFEND @Alice
 
   Perhaps bob thinks Alice has offended his mother. Then he might say this:
 
-  @Bob #ddv1 OFFEND @Alice, @BobsMama
+    @Bob #ddv1 OFFEND @Alice, @BobsMama
 
   If there wre a specific tweet Alice had written, say with address 'http://t.co/123', he might state:
 
-  @Bob #ddv1 OFFEND @Alice @Bob http://t.co/123
+    @Bob #ddv1 OFFEND @Alice @Bob http://t.co/123
 
 
   Maybe alice didn't realize that this was a problem. She might start by immediately apologizing to show good faith:
 
-  @Alice i'm not sure what happened lets talk  #ddv1 SORRY @Bob
+    @Alice i'm not sure what happened lets talk  #ddv1 SORRY @Bob
 
   And then she and Bob talk a while, until they found out that Alice made a joke about potato farming, and bob's mother was eaten by a potato. At the end of the conversation, bob says
 
 
-  @Bob: most people don't know the danger of spuds #ddv1 FORGIVE @alice
-  @Bob: i know i overreacted a bit #ddv1 THANKS @alice
+    @Bob: most people don't know the danger of spuds #ddv1 FORGIVE @alice
+    @Bob: i know i overreacted a bit #ddv1 THANKS @alice
 
  
   And now everyone feels better! Hooray!
@@ -169,7 +168,7 @@ If someone else has offended far fewer people, but has never apologized or been 
 
   dewDrop members can say thanks to each other. Isn't that cool? A user who's gotten lots of 'thanks' from friends of friends is probably trustworthy  - but again, that is up to you to decide. The point of dewDrop is merely to give people the ability to speak formally, in a way that there statements can be aggregated into a collective whole. You'll no longer be a drop in the ocean, but an edge in a proof.  Thanks!
   
-  .* #ddv1 THANKS (URL)[, (URL)]
+    .* #ddv1 THANKS (URL)[, (URL)]
 
 
 # warning
