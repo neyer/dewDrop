@@ -43,30 +43,101 @@ class Address(models.Model):
 
 admin.site.register(Address, Address.Admin)
 
+def _validate_json(body, expected):
+    missing = []
+
+    for key in expected:
+        if not key in body:
+            missing.append(key)
+    if missing: 
+        return False, { 'missing' : missing }
+    else:
+        return True, {}
 
 
 class Statement(models.Model):
+    """
+        The meat of the system here. Statements can have the following category
+
+        trust/distrust:
+            takes a url
+
+            reflects the content of the subject which made the referred statment
+                trust an article you think represents a genuine opinion
+
+            distrust a url you think does not reflect the opinion of the subject
+                i.e. a  url that you feel is not genuine
+
+        agree/disagree: reflects the content of the referred statement only
+            takes a url
+
+            agree with a statement that you also feel comfortable making
+
+            disagree with a statement that you feel comfortable negating
+
+            i can create transitive trust by saying "i agree with any statement avishaan makes of the form, i trust X"
+
+        same-as: reflects a belief that two authors are the same
+            takes two addresses.
+            the urls can be identities:
+               - i say these two addresses belong to the same person
+
+        offend: reflects a belief that address 1 has offended address 2
+            takes two addresses
+    
+        forgive: reflects a belief that address 1 has forgiven an offensive
+            takes one address, one url
+              
+    """
     author = models.ForeignKey(Address,
-                                related_name='statements_made')
-    subject = models.ForeignKey(Address, 
-                                blank=True,
-                                related_name="statements_about") 
-    content = models.TextField(default="") 
+                                related_name='statements')
+    subject_1 = models.URLField(max_length=1024)
+    subject_2 = models.URLField(max_length=1024)
+    
+    # statements fit into these categories,
+    PossibleCategories = ['TRUST',
+                          'DISTRUST',
+                          'AGREE',
+                          'DISAGREE',
+                          'SAME-ADDRESS',
+                          'OFFEND',
+                          'FORGIVE']
+    CategoryChoices = [ (c,c) for c in PossibleCategories]
+    
+    category = models.CharField(max_length=16,choices=CategoryChoices,default='TRUST')
+    # the comment contains details and more involved information
+    comment = models.TextField(default="")
+    # when the statement happened
     timestamp = models.FloatField()
 
     def __str__(self):
-        return "at {} {} says {} {}".format(self.timestamp,
+        return "at {} {} says {} {} {}".format(self.timestamp,
                                             self.author,
-                                            self.content,
-                                            self.subject)
-
+                                            self.category,
+                                            self.subject_1,
+                                            self.subject_2 or "")
     @classmethod
-    def create(classs, author, content, subject=None):
-        s = Statement(author=author,
-                      subject=subject,
-                      content=content,
-                      timestamp=time.time())
-        return s
+    def make_trust_statement(classs, body):
+        valid, errors = _validate_json(body, expected)
+        if not valid:
+            return errors
 
+        author_network = body['author_network']
+        author_name = body['author_network']
+        a_network, created = Network.objects.get_or_create(name=author_network)
+        if created: a_network.save()
+
+        author, created = Address.objects.get_or_create(network=a_network,
+                                                        name=author_name)
+        if created: author.save()
+
+        # we'll need some validation to verify each statement source
+        # in the future, dewdrop users (ones making statements) 
+        # will be able to make statements about which email address/twitter
+        # /fb account they own, and dewdrop can agree that these are valid
+
+
+
+         
 
 admin.site.register(Statement)

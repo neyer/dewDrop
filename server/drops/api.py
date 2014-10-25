@@ -43,8 +43,10 @@ class StatementResource(ModelResource):
 
         filtering = {
                 'author' : ALL_WITH_RELATIONS,
-                'subject' : ALL_WITH_RELATIONS,
-                'content' : ALL_WITH_RELATIONS,
+                'subject_1' : ALL_WITH_RELATIONS,
+                'subject_2' : ALL_WITH_RELATIONS,
+                'category' : ALL_WITH_RELATIONS,
+                'comment' : ALL_WITH_RELATIONS,
                 'timestamp' : ALL_WITH_RELATIONS,
         }
 
