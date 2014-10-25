@@ -1,4 +1,4 @@
-# dewDrop : an attestation network
+# dewDrop : a social trust network
 
 
 # what
