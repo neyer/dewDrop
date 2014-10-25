@@ -115,12 +115,11 @@ People who are concerned about trolling or being victimized online can follow th
 
     .* #ddv1 SAME (URL) (URL)
 
-  This statement may seem small at first, but it actually gives dewDrop a lot of power. It's used to link identities together - so that I can say "this facebook account is the same as this twitter acount", this email address belongs to this account, etc. If @Eve someone creates a fake trolling account @Fred, and I'm  certain it's @Eve pulling the strings, I can make this statement public: 
+  This statement may seem small at first, but it actually gives dewDrop a lot of power. It's used to link identities together - so that I can say "this facebook account is the same as this twitter acount", this email address belongs to this account, etc. If @Eve creates a fake account @Fred so she can troll people, and I'm  certain it's @Eve pulling the strings, I can make this statement public: 
 
     @Bob: #ddv1 SAME @Eve @Fred
 
-
-The standard mechanism for resoving these disputes applies; people who know @eve may disagree, @fred will probably disagree as well. If there are trusted friends involved that know both of us, they may want to step in to resolve this dispute.
+People who trust me and are mad at @fred for trolling will not be made at @eve.  The standard mechanism for resoving these disputes applies; people who know @eve may disagree, @fred will probably disagree as well. If there are trusted friends involved that know both of us, they may want to step in to resolve this dispute. If there are no trusted friends, maybe we're all just better off not talking to one another. 
 
 
   The 'SAME' statement also allows for a unified sense of personhood to emerge from  multiple social media accounts. I can make a statement about my friend on facebook, and his twitter followers will be able to make sense of the same statement.
@@ -132,10 +131,7 @@ The standard mechanism for resoving these disputes applies; people who know @eve
     .* #ddv1 FORGIVE (URL)[, (URL)[, (URL)]]
     .* #ddv1 SORRY (URL)[, (URL)]
 
-  People upset each other. This happens, and its part of the world. By keeping a record of those we have upset, and those who we've forgiven, we can all help each other get a better gauge of who are are. If i run into a stranger on twitter who really upsets me, and i see from his record that friends of friends have all been upset by this guy, but for every single one, he's apologized and they've forgiven him - it suggets that he may be worth talking to.
-
-If someone else has offended far fewer people, but has never apologized or been forgiven - it suggests that his offense to me is'nt going to change, and I should probably ignore him.
-
+  People upset each other. This happens, and its part of the world. By keeping a record of those we have upset, and those who we've forgiven, we can all help each other get a better gauge of who and how we are. If I run into a stranger on twitter who really upsets me, and I see from his record that a few friends of friends been upset by this guy, but for every single one, he's apologized and they've forgiven him - it suggets that he may be worth talking to. If someone else has offended far fewer people, but has never apologized or been forgiven - it suggests that his offense to me isn't going to change, and I should probably ignore him.
 
   The syntax for 'offend' is :
   #ddv1 OFFEND (person who did the offense) (person who felt offended) (description of the offense)
