@@ -42,6 +42,11 @@ class HasField(object):
     # put this guy in the list
     upper_name = classs.__name__.upper()
     all_statement_classes[upper_name] = classs
+    # add the list of fields to this class
+    if not hasattr(classs, 'Fields'):
+      classs.Fields = []
+
+    classs.Fields.append((self.name, self.category))
 
     return classs
 
@@ -73,43 +78,62 @@ class NotA(Statement):
       self.description = tokens[3] 
 
 @HasField("statement","url")
-class Agree(Statement): pass
+class Agree(Statement): 
+  def parse(self, tokens):
+    self.statement = tokens[2]
 
 @HasField("statement","url")
-class Disagree(Statement): pass
+class Disagree(Statement):
+  def parse(self, tokens):
+    self.statement = tokens[2]
 
 
 @HasField("statement","url")
 class Trust(Statement):
 
   def parse(self, tokens):
-    self.statement= tokens[2]
-
+    self.statement = tokens[2]
 
 
 @HasField("statement","url")
-class Distrust(Statement): pass
+class Distrust(Statement):
+  def parse(self, tokens):
+    self.statement = tokens[2]
 
 @HasField("source","url")
 @HasField("dest","url")
-class Same(Statement): pass
+class Same(Statement):
+  def parse(self, tokens):
+    self.source = tokens[2]
+    self.source = tokens[3]
+
+
+def apply_tripart_statement(statement, tokens):
+  token_offset = 2
+  fields = statement.__class__.Fields
+  for field, token in zip(names, tokens[token_offset:]):
+    setattr(statement, field[0], token)
 
 
 @HasField("accused","url")
 @HasField("accuser","url")
 @HasField("description","url")
-class Hurt(Statement): pass
+class Hurt(Statement):
+  parse = apply_tripart_statement
+
 
 @HasField("forgiven","url")
 @HasField("forgiver","url")
 @HasField("description","url")
-class Forgive(Statement): pass
+class Forgive(Statement):
+  parse = apply_tripart_statement
 
 
 @HasField("giver","url")
 @HasField("recipient","url")
 @HasField("description","url")
-class Thanks(Statement): pass
+class Thanks(Statement):
+  parse = apply_tripart_statement
 
 
 def get_class_for_token(token):
