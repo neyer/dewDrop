@@ -12,3 +12,9 @@ class ParserTest(TestCase):
     self.assertIsInstance(s, statements.IsA)
     self.assertEqual(s.group, '#troll')
 
+
+    s = parser.parse("#ddv2 ISA #troll @trollbob")
+    self.assertIsInstance(s, statements.IsA)
+    self.assertEqual(s.group, "#troll")
+    self.assertEqual(s.member, "@trollbob")
+

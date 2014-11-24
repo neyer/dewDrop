@@ -1,7 +1,7 @@
 from functools import wraps
 import re
 import inspect
-URL_REGEX = re.compile(r"\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))")
+URL_REGEX = re.compile(".*") # fuck it
 HASHTAG_REGEX = re.compile("#\w+")
 
 all_statement_classes = {}
@@ -59,13 +59,16 @@ class Statement(object):
 
 
 @HasField("group","hashtag")
+@HasField("member","url")
 @HasField("description","url")
 class IsA(Statement): 
 
   def parse(self, tokens):
     self.group = tokens[2]
     if len(tokens) > 3:
-      self.url = tokens[3]
+      self.member = tokens[3]
+    if len(tokens) > 4:
+      self.description = tokens[4]
 
 
 @HasField("group","hashtag")

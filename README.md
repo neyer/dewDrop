@@ -36,8 +36,8 @@
   They are explained below:
 
 ## Group Membership
-    .* #ddv2 ISA (HASHTAG) [URL]
-    .* #ddv2 NOTA (HASHTAG) [URL]
+    .* #ddv2 ISA (HASHTAG) [URL [URL]]
+    .* #ddv2 NOTA (HASHTAG) [URL [URL]]
 
 
 Groups in dewdrop are represented by hashtags. A person can claim to be a member of a group with the 'ISA' verb, and claim not to be a meber with the 'NOTA' verb. For example, the sentence
@@ -51,6 +51,9 @@ Means "The speaker of this sentence claims to be a member of the #democrat group
 A person can also make statements about other people.  I can claim that Ralph Nader is a #greeparty member:
 
     #ddv2 ISA #greeparty @RalphNader
+
+
+A third argument contains a description. This can be used for evidence of the claim bebeing made, or a vernacular argument.
 
     
 ## Statement Agreement
@@ -94,8 +97,8 @@ As a result of this exchange, the '#LGBTAlly' has increased its integrity; the s
 
   
 ## Trust and Distrust
-    .* #ddv2 TRUST (URL)
-    .* #ddv2 DISTRUST (URL)
+    .* #ddv2 TRUST (URL) [URL [URL]]
+    .* #ddv2 DISTRUST (URL) [URL [URL]]
 
   At lower layer than disagreement is trust. I can disagree with someone, but still believe they are honestly expressing their belief. Users in dewdrop have the ability to state trust and distrust in statements or other users with the 'TRUST/DISTRUST' verbs.
   
@@ -110,6 +113,8 @@ The opposite statement - TRUST - implies that the person i am speaking about is 
 People who are concerned about trolling or being victimized online can follow the TRUST statements issued by their friends to whatever extent they feel comfortable with. Someone who feels comfortable online may say "I'll accept messages from any users whom I can reach through a TRUST-path of length 4 or less."  Someone who feels less comfortable or is more worried about harassment can block or ignore users with a TRUSt-path length of more than 2 - implying they are willing to speak to trusted friends of trusted friends, but not anyone else.
 
   The 'TRUST' statements allow us to protect each other from trolls.  Anyone is free to disregard these statements, of course - but if I know I can talk to a lot of interesting people following only trusted links from friends, and I know that accepting messages from random strangers puts me at risk of serious harassment - I should have the freedom to choose whom I wish to associate with. 
+
+  I can speak about others' trust or distrust using the three-part syntax. The first URL is the person who is [dis]trustd. The second is the one who does the trust/distrust. The third is a description url; my reasoning for linking the two.
 
 ## Same Identity
 
@@ -127,9 +132,9 @@ People who trust me and are mad at @fred for trolling will not be made at @eve. 
 
 ## Hurt, Apology, Forgiveness
 
-    .* #ddv2 HURT(URL)[, (URL)[, (URL)]]
-    .* #ddv2 FORGIVE (URL)[, (URL)[, (URL)]]
-    .* #ddv2 SORRY (URL)[, (URL)[, URL]]
+    .* #ddv2 HURT(URL)[ (URL)[ (URL)]]
+    .* #ddv2 FORGIVE (URL)[ (URL)[ (URL)]]
+    .* #ddv2 SORRY (URL)[ (URL)[ URL]]
 
   People upset each other. This happens, and its part of the world. By keeping a record of those we have upset, and those who we've forgiven, we can all help each other get a better gauge of who and how we are. If I run into a stranger on twitter who really upsets me, and I see from his record that a few friends of friends been upset by this guy, but for every single one, he's apologized and they've forgiven him - it suggets that he may be worth talking to. If someone else has offended far fewer people, but has never apologized or been forgiven - it suggests that his offense to me isn't going to change, and I should probably ignore him.
 
@@ -156,7 +161,7 @@ In all of these, if there is only one argument given, it the value of the second
 
   Perhaps bob thinks Alice has offended his mother. Then he might say this:
 
-    @Bob #ddv2 HURT @Alice, @BobsMama
+    @Bob #ddv2 HURT @Alice @BobsMama
 
   If there wre a specific tweet Alice had written, say with address 'http://t.co/123', he might state:
 
@@ -183,7 +188,7 @@ In all of these, if there is only one argument given, it the value of the second
 
   dewDrop members can say thanks to each other. Isn't that cool? A user who's gotten lots of 'thanks' from friends of friends is probably trustworthy  - but again, that is up to you to decide. The point of dewDrop is merely to give people the ability to speak formally, in a way that there statements can be aggregated into a collective whole. You'll no longer be a drop in the ocean, but an edge in a proof.  Thanks!
   
-    .* #ddv2 THANKS (URL)[, (URL)[ , (URL)]
+    .* #ddv2 THANKS (URL)[ (URL)[  (URL)]
 
   The 'THANKS' syntax follows the same pattern as FORGIVE or HURT. A single url means that the speaker is saying they feel thankful to the identity at that url. Two Urls means the speaker is saying "preson A thanks person B". Three urls mean "person A thanks person B, here are details". 
 
