@@ -6,6 +6,8 @@
 
   dewDrop is a simple formal language for use on social networks. 
 
+  anyone can make statements in dewDrop, and anyone can aggregate those statements to reach conclusions using all the knowledge of their social graph. only the people you trust - directly or transitively - will have their statements weighted.
+
 # why
    
   Online harrassment is a serious problem. Sensitive discussions about important topics are easily derailed by trolls. In addition to runining the experience of a person discussing anything online, trolls can claim to be a member of any group or support any ideology, giving a non-affiliated group a bad name through false flag techniques. 
