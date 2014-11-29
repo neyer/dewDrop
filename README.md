@@ -6,7 +6,9 @@
 
   dewDrop is a simple formal language for use on social networks. 
 
-  anyone can make statements in dewDrop, and anyone can aggregate those statements to reach conclusions using all the knowledge of their social graph. only the people you trust - directly or transitively - will have their statements weighted.
+  Anyone can make statements in dewDrop, and anyone can aggregate those statements to reach conclusions using all the knowledge of their social graph. Only the people you trust - directly or transitively - will have their statements weighted when you build conclusions.
+
+Think wikipedia, with a different official article for each user, depending upon who that user trusts. Anyone can add statements, but how you arrange those statements is up to you.
 
 # why
    
