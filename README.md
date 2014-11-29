@@ -8,7 +8,7 @@
 
   Anyone can make statements in dewDrop, and anyone can aggregate those statements to reach conclusions using all the knowledge of their social graph. Only the people you trust - directly or transitively - will have their statements weighted when you build conclusions.
 
-Think wikipedia, with a different article for each user, depending upon who that user trusts. Anyone can add statements, but how you arrange those statements to form conclusions is up to you.  People who trust you will use your statements; people who don't may not.
+Think wikipedia, with a different article for each user, depending upon who that user trusts. Anyone can add statements, but which of those statements you use to form conclusions is up to you.  People who trust you will use your statements; people who don't may not.
 
 # why
    
