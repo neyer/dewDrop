@@ -46,11 +46,10 @@ class HasField(object):
     if not hasattr(classs, 'Fields'):
       classs.Fields = []
 
-    classs.Fields.append((self.name, self.category))
+    classs.Fields.insert(0, (self.name, self.category))
 
     return classs
 
-@HasField("context","url")
 class Statement(object):
     
     def __init__(*args, **kwargs):
@@ -58,86 +57,71 @@ class Statement(object):
         setattr(self, key, value)
 
 
+    def parse(statement, tokens):
+      token_offset = 1
+      fields = statement.__class__.Fields
+      for field, token in zip(fields,
+                              tokens[token_offset:]):
+        print 'setting', field
+        setattr(statement, field[0], token)
+    
+
+
 @HasField("group","hashtag")
 @HasField("member","url")
-@HasField("description","url")
-class IsA(Statement): 
-
-  def parse(self, tokens):
-    self.group = tokens[2]
-    if len(tokens) > 3:
-      self.member = tokens[3]
-    if len(tokens) > 4:
-      self.description = tokens[4]
+@HasField("claimaint","url")
+class IsA(Statement): pass
 
 
 @HasField("group","hashtag")
-@HasField("description","url")
-class NotA(Statement):
-
-  def parse(self, tokens):
-    self.group = tokens[2]
-    if len(tokens) > 3:
-      self.description = tokens[3] 
+@HasField("nonmember", "url")
+@HasField("claimaint","url")
+class NotA(Statement): pass
 
 @HasField("statement","url")
-class Agree(Statement): 
-  def parse(self, tokens):
-    self.statement = tokens[2]
+@HasField("agreer","url")
+@HasField("claimant","url")
+class Agree(Statement): pass
 
 @HasField("statement","url")
-class Disagree(Statement):
-  def parse(self, tokens):
-    self.statement = tokens[2]
-
-
-@HasField("statement","url")
-class Trust(Statement):
-
-  def parse(self, tokens):
-    self.statement = tokens[2]
-
+@HasField("disagreer","url")
+@HasField("claimant","url")
+class Disagree(Statement): pass
 
 @HasField("statement","url")
-class Distrust(Statement):
-  def parse(self, tokens):
-    self.statement = tokens[2]
+@HasField("truster","url")
+@HasField("claimant","url")
+class Trust(Statement): pass
+
+@HasField("statement","url")
+@HasField("distruster","url")
+@HasField("claimant","url")
+class Distrust(Statement): pass
 
 @HasField("source","url")
 @HasField("dest","url")
-class Same(Statement):
-  def parse(self, tokens):
-    self.source = tokens[2]
-    self.source = tokens[3]
+@HasField("claimant","url")
+class Same(Statement): pass
 
-
-def apply_tripart_statement(statement, tokens):
-  token_offset = 2
-  fields = statement.__class__.Fields
-  for field, token in zip(names, tokens[token_offset:]):
-    setattr(statement, field[0], token)
-
-
+@HasField("description","url")
 @HasField("accused","url")
 @HasField("accuser","url")
+class Hurt(Statement): pass
+
 @HasField("description","url")
-class Hurt(Statement):
-  parse = apply_tripart_statement
-
-
 @HasField("forgiven","url")
 @HasField("forgiver","url")
+class Forgive(Statement): pass
+
 @HasField("description","url")
-class Forgive(Statement):
-  parse = apply_tripart_statement
-
-
-@HasField("giver","url")
 @HasField("recipient","url")
-@HasField("description","url")
-class Thanks(Statement):
-  parse = apply_tripart_statement
+@HasField("giver","url")
+class Thanks(Statement): pass
 
+@HasField("description","url")
+@HasField("recipient","url")
+@HasField("giver","url")
+class Sorry(Statement): pass
 
 def get_class_for_token(token):
   return all_statement_classes.get(token)
