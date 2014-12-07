@@ -1,6 +1,6 @@
 import re
 
-DDV2_TOKEN = '#ddv2'
+DDV_TOKEN = '#ddv3'
 
 import statements
 import inspect
@@ -10,7 +10,7 @@ def get_tokens(raw_text):
 
   index = 0
   try:
-    index = words.index(DDV2_TOKEN)
+    index = words.index(DDV_TOKEN)
   except ValueError:
     return []
   # now chop out empty words

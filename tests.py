@@ -8,7 +8,7 @@ class ParserTest(TestCase):
 
 
   def setUp(self):
-    self.magic_token = parser.DDV2_TOKEN
+    self.magic_token = parser.DDV_TOKEN
 
     
   def test_bunchOfStuff(self):
@@ -66,7 +66,7 @@ class ParserTest(TestCase):
     self.assertIsInstance(s, statements.IsA)
     self.assertEqual(s.group, '#troll')
 
-    s = parser.parse("#ddv2 ISA #troll @trollbob")
+    s = parser.parse(self.magic_token + " ISA #troll @trollbob")
     self.assertIsInstance(s, statements.IsA)
     self.assertEqual(s.group, "#troll")
     self.assertEqual(s.member, "@trollbob")
