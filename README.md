@@ -34,13 +34,13 @@ Think wikipedia, with a different article for each user, depending upon who that
 
 ## No Single Perspective is Authoritative
 
-If you read that last sentence, you may think I'm wrong - you may not trust people who always apologiz, because you think it means they are weak. Fine - that's entirely up to you - with a public record of who has said what, when, you can go through records and ignore people who behave in _any_ way you don't like. 
+If you read that last sentence, you may think I'm wrong - you may not trust people who always apologiez, because you think it means they are weak. Fine - that's entirely up to you - with a public record of who has said what, when, you can go through records and ignore people who behave in _any_ way you don't like. 
 
 Nothing is forced on anyone.
 
 ## A Flawed Version of this System Already Exists
 
-  Pepople _already_ judge each other based upon the words of their friends and colleagues. They do this using heuristics, and the judgements are rarely nuanced. The system at work today provides on incenetive for general public apology, there is no track record of statements to see who agrees with and disagrees with who.
+  Pepople _already_ judge each other based upon the words of their friends and colleagues. They do this using heuristics, and the judgements are rarely nuanced. The system at work today provides no incenetive for public apology. There is no track record of statements to see who agrees with and disagrees with who. There is no way to see whose statemens contradict themselves, and how frequently. 
 
   By speaking in a formal language, it's possible to combine million of statements made by different people and come to solid conclusions about beliefs which are contradictory, and how much weight we should put on a stranger's words -
 
