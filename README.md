@@ -88,7 +88,7 @@ Nothing is forced on anyone.
     .* #ddv2 NOTA (HASHTAG) [URL [URL]]
 
 
-Groups in dewdrop are represented by hashtags. A person can claim to be a member of a group with the 'ISA' verb, and claim not to be a meber with the 'NOTA' verb. For example, the sentence
+Groups in dewdrop are represented by hashtags. A person can claim to be a member of a group with the 'ISA' verb, and claim not to be a member with the 'NOTA' verb. For example, the sentence
 
     #ddv2 ISA #democrat
 
@@ -115,7 +115,7 @@ If my friend hears a speech, where Barack Obama claims that Ralph Nader is a doo
  
  I can also agree with a supreme court decision by 'agreeing' with a news article about the supreme court decision, or the wikipedia page. 
 
-  When a discussion evolvs to a certain point, must likely a hashtag will be created to represent the movement. At that point, people who agree with one 'side'  of the discussion will issue a 'group memebership' statement. The point of 'agremeent' statements is primarily to allow people to agree or disagree with other people's statements.
+  When a discussion evolvs to a certain point, must likely a hashtag will be created to represent the movement. At that point, people who agree with one 'side'  of the discussion will issue a 'group membership' statement. The point of 'agremeent' statements is primarily to allow people to agree or disagree with other people's statements.
 
  Suppose Alice, who supports marriage equality, issues a statement:
 
