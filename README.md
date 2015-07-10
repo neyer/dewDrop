@@ -2,6 +2,9 @@
 
 ## A Formal Language for Social Networks
 
+# Quick Update
+  Apparently someone posted this repo on hacker news. Hooray! I've paused work on dewDrop for now, and am focusing efforts in this area on the [respect matrix project](https://github.com/neyer/respect). This project is based upon the same idea as dewDrop - that quantifying our beliefs using statements about one another will give us to a powerful platform for social truth. The respect matrix is _far_ simpler than dewDrop, in that there are only two statements a person can make - I respect this person, I do not respet that person.  If the respect matrix takes off - and I expect it to do so eventually - then I will return to work on dewDrop.  Feel free to use this code or build something off of it, but where you can contribute the most would be to build a bot to process respect matrix statements for a social network of your choice. Check that project for udpates. Thanks!
+
 # What
 
   dewDrop is a simple formal language for use on social networks.
